@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feliz Medio Año, Mi Amor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Quicksand:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --pastel-blue: #7dd3fc; /* Stronger light blue */
+            --pastel-pink: #f9a8d4; /* Stronger light pink */
+            --text-main: #334155;
+            --text-accent: #6366f1;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            font-family: 'Quicksand', sans-serif;
+            /* Fondo con predominancia del rosado vibrante y pastel */
+            background: linear-gradient(-45deg, #f472b6, #f9a8d4, #fbcfe8, #7dd3fc, #ec4899);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: var(--text-main);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .bg-shape {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px); /* Increased blur for smoother blending */
+            z-index: -1;
+            opacity: 0.8; /* Increased opacity for stronger colors */
+        }
+
+        .shape-1 {
+            width: 400px; /* Azul un poco más pequeño */
+            height: 400px;
+            background-color: #7dd3fc; /* Azul más suave */
+            top: -100px;
+            left: -100px;
+            animation: float 15s ease-in-out infinite alternate;
+        }
+
+        .shape-2 {
+            width: 600px; /* Rosado mucho más grande */
+            height: 600px;
+            background-color: #ec4899; /* Rosado más fuerte y vibrante */
+            bottom: -100px;
+            right: -100px;
+            animation: float 20s ease-in-out infinite alternate-reverse;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(30px, 50px) scale(1.1); }
+            100% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+
+        .title-text {
+            font-family: 'Caveat', cursive;
+            color: #4f46e5;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8);
+        }
+
+        .letter-font {
+            font-family: 'Caveat', cursive;
+            font-size: 1.5rem;
+            line-height: 1.8;
+            color: #475569;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border-radius: 2rem;
+        }
+
+        .decorative-heart {
+            color: #f472b6;
+            animation: beat 2s ease infinite;
+            display: inline-block;
+        }
+
+        @keyframes beat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .character-img {
+            filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.15));
+            transition: transform 0.5s ease;
+        }
+        
+        .character-img:hover {
+            transform: translateY(-10px);
+        }
+
+        .playlist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            width: 100%;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 1rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            background-color: #f8fafc;
+            border: 4px solid white;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .video-container:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 12px 25px rgba(99, 102, 241, 0.15);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .song-title {
+            text-align: center;
+            margin-top: 0.75rem;
+            font-weight: 600;
+            color: #64748b;
+            font-size: 0.95rem;
+        }
+
+        /* Editable letter area styling */
+        .letter-content[contenteditable="true"] {
+            outline: none;
+            padding: 1rem;
+            border: 2px dashed rgba(244, 114, 182, 0.3);
+            border-radius: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .letter-content[contenteditable="true"]:focus {
+            border-color: rgba(244, 114, 182, 0.8);
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .edit-hint {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            text-align: center;
+            margin-top: 0.5rem;
+            font-family: 'Quicksand', sans-serif;
+        }
+    </style>
+</head>
+<body class="relative min-h-screen">
+
+    <div class="bg-shape shape-1"></div>
+    <div class="bg-shape shape-2"></div>
+    <div class="bg-shape" style="width: 550px; height: 550px; background-color: #f472b6; top: 25%; left: 15%; border-radius: 50%; filter: blur(90px); position: fixed; z-index: -1; opacity: 0.85; animation: float 18s ease-in-out infinite alternate;"></div>
+    <div class="bg-shape" style="width: 350px; height: 350px; background-color: #38bdf8; bottom: 15%; left: 10%; border-radius: 50%; filter: blur(80px); position: fixed; z-index: -1; opacity: 0.6; animation: float 22s ease-in-out infinite alternate-reverse;"></div>
+
+    <main class="relative z-10 container mx-auto px-4 py-12 flex flex-col items-center max-w-5xl">
+        
+        <div class="text-center mb-10 w-full">
+            <h1 class="text-5xl md:text-7xl mb-4 title-text">Feliz medio año mapachita</h1>
+            <p class="text-xl md:text-2xl text-slate-500 font-light">Seis meses escribiendo nuestra propia historia...</p>
+        </div>
+
+        <!-- Centerpiece Image (Rem and Subaru together) -->
+        <div class="mb-16 flex justify-center relative">
+            <div class="absolute inset-0 bg-white opacity-40 rounded-full filter blur-2xl"></div>
+            <img src="what-do-you-think-of-how-subaru-and-rems-relationship-is-v0-83aejslthmvg1.webp" 
+                 alt="Rem y Subaru Juntos" 
+                 class="character-img w-64 md:w-80 lg:w-96 relative z-10">
+        </div>
+
+        <section class="w-full glass-card p-8 md:p-12 mb-20 relative">
+            <!-- Decorative corners -->
+            <div class="absolute top-4 left-4 text-3xl text-pink-300 opacity-50">❝</div>
+            <div class="absolute bottom-4 right-4 text-3xl text-pink-300 opacity-50">❞</div>
+            
+            <h2 class="text-3xl font-semibold mb-6 text-indigo-400 text-center title-text">Una carta para ti :3</h2>
+            
+            <!-- This div is editable so you can write the letter directly in the preview -->
+            <div class="letter-content letter-font" contenteditable="true" id="myLetter">
+                weñaaaaaaaaaaaaaaaaash, como estas mapachita linda, que me cuentas mi juli hermosa<br><br>
+                ay amor sinceramente perdon por entregarte tu regalito una semana despues, nuestro mes es el 2 de abril pero te lo entregue el 9 XD<br>
+                perdon mapachita, me toco volver a aprender a hacer estas cosas para programar y hacerlo como lo hacia el joshua que tu conoces<br><br>
+                ay mapachita, la verdad creo que es evidente porque puse a subaru y rem, no es solo porque nos guste el ship, sino por la historia y por la gula<br>
+                mapachita, a pesar de que haya perdido la memoria, nunca olvidaria lo que es mas importante para mi, y eso eres tu mapachita, juli, amorcito no sabes cuanto te amo mapachita, y aunque pierda la memoria, yo no voy a olvidarme nunca de la promesa que te hice ni tampoco te olvidare a ti por nada en el mundo, aunque para mi esta siendo dificil y deprimente todo esto, se que estoy muy agradecido contigo por todo mi amor, y tambien lo estaria el joshua que conoces xd, te pido gracias y perdon por todo en mi lugar y en lugar de joshua<br><br>
+                te amo mapachita, la verdad no sabes cuanto me haz ayudado y a pesar de estar deprimido cada rato tu fuiste mi solesito en medio de mi depresion<br>
+                gracias por todo mapachita<br>
+                gracias por estos 6 mesesitos de amor<br><br>
+                te amo mapachita, cuidate mi juli hermosa :3<br>
+                no sabes cuanto te amo julieth<br>
+                gracias mapachita :3<br><br>
+                bye amorcitoooooooooo<br>
+                te amoooooooooooooooo<br>
+                :P<br>
+                :]<br>
+                :3
+            </div>
+            
+            <!-- Side decorative images near the letter -->
+            <img src="164-1645922_rem-rezero-bluehair-rem-re-zero-chibi.png" 
+                 alt="Rem Cute" 
+                 class="character-img absolute -bottom-10 -left-10 w-32 md:w-48 hidden md:block opacity-90">
+            <img src="Natsuki.Subaru.full.3362476.png" 
+                 alt="Subaru Happy" 
+                 class="character-img absolute -bottom-10 -right-10 w-32 md:w-48 hidden md:block opacity-90">
+        </section>
+
+        <section class="w-full glass-card p-8 md:p-12 mb-20 relative">
+            <div class="text-center mb-10">
+                <h2 class="text-4xl title-text text-pink-400 inline-block relative">
+                    Canciones pa mi juli
+                    <span class="absolute -top-4 -right-6 text-2xl decorative-heart">♪</span>
+                </h2>
+                <p class="text-slate-500 mt-2">La banda sonora de nuestro amor</p>
+            </div>
+
+            <!-- YouTube Video Grid -->
+            <div class="playlist-grid" id="playlist-container">
+                <!-- Videos will be injected here via JavaScript -->
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center py-8 text-slate-400 text-sm mt-12 border-t border-white/40">
+        Hecho con todo el amor del mundo para ti. ♥
+    </footer>
+
+    <script>
+        // List of songs and their YouTube IDs
+        const songs = [
+            { id: 'kPa7bsKwL-c', title: 'Die with a smile' },
+            { id: 'GDND88fqt1o', title: 'Those eyes' },
+            { id: 'GxldQ9eX2wo', title: 'Until i found you' },
+            { id: 'IpFX2vq8HKw', title: 'Blue' },
+            { id: '4NOMFBRfaT0', title: 'Roi' },
+            { id: 'WxMfZW-kK5s', title: 'Amour plastique' },
+            { id: 'ZV4xkQjXpPg', title: 'Back to friends' },
+            { id: 'ZxE0QzE2K9o', title: 'Her' },
+            { id: 'XgNc8iELq0c', title: 'This side of paradise' },
+            { id: 'epfb5f3X1aE', title: 'Riptide' },
+            { id: 'LjhCEhWiKXk', title: 'Just the way you are' },
+            { id: 'CwGbMYLjIpQ', title: 'My love mine all mine' },
+            { id: 'kztpLdCJ3Dg', title: 'Sweater weather' },
+            { id: 'FM7MFYoylVs', title: 'Something just like this' },
+            { id: 'Ip6cw8gfHHI', title: 'Here with me' },
+            { id: '1lrFsXkT_rM', title: 'Sailor song' },
+            { id: 'n0wxysyns-g', title: 'Deseándote' },
+            { id: 'Bmqg7naxfvo', title: 'Wakusei loop' },
+            { id: 'pz9O3UeM_o0', title: 'Virgen' },
+            { id: 'w74JzRt7xUI', title: 'La noche mas linda' },
+            { id: 'bqnY6w6AWm0', title: 'Te amo, Te extraño' },
+            { id: '7GYVJgflHK4', title: 'Que locura enamorarme de ti' },
+            { id: '2jXtJxtoRd8', title: 'Oh que sera?' },
+            { id: 'D_0FKJqxldE', title: 'Anhelo' },
+            { id: 'ZGN5MqsUyr4', title: 'Amárrame' },
+            { id: 'Qfm6nfz1QNQ', title: 'As it was' },
+            { id: 'u7rcs9CMPy4', title: 'Stay with me' },
+            { id: 'kq2BCYAKDNc', title: 'From The start' },
+            { id: 'cNGjD0VG4R8', title: 'Perfect' },
+            { id: 'gset79KMmt0', title: 'Snowman' },
+            { id: 'SND2LY0s8FE', title: 'Take me to church' },
+            { id: 'h7FN5dU9ROo', title: 'Yellow' },
+            { id: 'rfTgO9rpqck', title: 'Heat waves' },
+            { id: 'ByiOOe6XuvM', title: 'Line without a hook' }
+        ];
+
+        // Function to render the video grid
+        function renderPlaylist() {
+            const container = document.getElementById('playlist-container');
+            
+            songs.forEach(song => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'flex flex-col';
+                
+                itemDiv.innerHTML = `
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/${song.id}?rel=0" 
+                                title="${song.title}" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen
+                                loading="lazy">
+                        </iframe>
+                    </div>
+                    <div class="song-title">${song.title}</div>
+                `;
+                
+                container.appendChild(itemDiv);
+            });
+        }
+
+        // Initialize when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            renderPlaylist();
+            
+            // Optional: Prevent pasting rich text into the editable letter to keep the font styling intact
+            const letterEditor = document.getElementById('myLetter');
+            letterEditor.addEventListener('paste', function(e) {
+                e.preventDefault();
+                const text = (e.originalEvent || e).clipboardData.getData('text/plain');
+                document.execCommand('insertText', false, text);
+            });
+        });
+    </script>
+</body>
+</html>
